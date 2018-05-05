@@ -8,6 +8,7 @@
     "react-paginate": "^5.2.3",
     "react-scripts": "1.1.4",
     "react-select": "^2.0.0-beta.2",
+    "react-spinners": "^0.3.2",
     "react-string-replace": "^0.4.1"
   },
   "scripts": {

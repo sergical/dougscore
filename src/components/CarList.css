@@ -1,6 +1,4 @@
 .CarList {
-  max-width: 900px;
-  margin: 0 auto;
   padding: 15px;
 }
 
@@ -8,6 +6,8 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .CarList .search input {
@@ -28,7 +28,8 @@
 }
 
 .CarList .filters {
-  margin: 25px 0px;
+  margin: 25px auto;
+  max-width: 800px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,6 +39,7 @@
 .CarList .filters .filter-wrapper {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .CarList .filters .filter-wrapper .filter-label {
@@ -48,6 +50,11 @@
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   min-width: 200px;
+}
+
+.CarList .filters .filter .filter__control {
+  background: #fff;
+  border: none;
 }
 
 .CarList ul.pagination {
@@ -67,6 +74,7 @@
 }
 
 .no-results {
+  width: 100%;
   text-align: center;
 }
 
@@ -77,4 +85,11 @@
 .CarList .pagination li.active a {
   background: #222;
   color: #fff;
+}
+
+.Loading {
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

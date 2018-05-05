@@ -1,15 +1,25 @@
 .Car {
-  padding: 10px 25px;
-  margin-bottom: 10px;
+  padding: 15px;
+  margin: 10px;
   border-radius: 4px;
   background: #fff;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: all 0.15s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 44px;
-  flex-wrap: wrap;
+  flex: 1;
+  position: relative;
+  flex-basis: 100%;
+}
+
+.Car h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  margin-right: 25px;
+}
+
+.Car .number {
+  font-weight: 600;
 }
 
 .Car div:first-child {
@@ -21,33 +31,6 @@
   color: #fff;
 }
 
-.Car .weekend {
-  padding: 5px;
-  border-radius: 4px;
-  background: #ffc5d2;
-}
-
-.Car .daily {
-  padding: 5px;
-  border-radius: 4px;
-  background: #c6e0b4;
-}
-
-.Car .score {
-  padding: 5px;
-  border-radius: 4px;
-  background: #404040;
-  color: #fff;
-}
-
-.Car div:not(:first-child) {
-  flex-grow: 0;
-}
-
-.Car div:not(.active) {
-  margin-right: 20px;
-}
-
 .Car .active {
   background: #6aa84f;
   color: #fff;
@@ -57,10 +40,26 @@
   transform: scale(1.2) rotateZ(14deg);
   width: 20px;
   text-align: center;
+
   order: 5;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .Car:hover {
   transform: translateY(-1px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .Car {
+    flex-basis: 40%;
+  }
+}
+
+@media (min-width: 900px) {
+  .Car {
+    flex-basis: 20%;
+  }
 }

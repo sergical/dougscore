@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
+import { PacmanLoader } from "react-spinners";
 import { load } from "../helpers/spreadsheet";
 import Car from "./Car";
 import "./CarList.css";
 
 import NotFound from "./not-found.gif";
 
-const PAGE_LIMIT = 10;
+const PAGE_LIMIT = 20;
 
 const sortOptions = [
   { value: "score", label: "DougScore" },
@@ -137,7 +138,9 @@ class CarList extends Component {
 
   render() {
     return this.state.loading ? (
-      <div>Loading!!!</div>
+      <div className="Loading">
+        <PacmanLoader color={"#6aa84f"} loading={this.state.loading} />
+      </div>
     ) : this.state.error ? (
       <div>{this.state.error}</div>
     ) : (
@@ -186,7 +189,7 @@ class CarList extends Component {
           forcePage={this.state.page}
           pageCount={this.state.pageCount}
           marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
           onPageChange={this.handlePageClick}
           containerClassName={"pagination"}
           subContainerClassName={"pages pagination"}
