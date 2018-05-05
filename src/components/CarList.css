@@ -1,0 +1,76 @@
+.CarList {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.CarList ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.CarList .search input {
+  padding: 10px;
+  font-size: 14px;
+  max-width: 300px;
+  width: 100%;
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.CarList .search {
+  flex-grow: 1;
+}
+
+.CarList .filters {
+  margin: 25px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.CarList .filters .filter-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.CarList .filters .filter-wrapper .filter-label {
+  margin-right: 15px;
+}
+
+.CarList .filters .filter {
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  min-width: 200px;
+}
+
+.CarList ul.pagination {
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.CarList ul.pagination li {
+  display: inline-block;
+  width: 20px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.CarList ul.pagination li a {
+  display: block;
+}
+
+.CarList .pagination li.active a {
+  background: #222;
+  color: #fff;
+}

@@ -1,0 +1,66 @@
+.Car {
+  padding: 10px 25px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.15s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+  flex-wrap: wrap;
+}
+
+.Car div:first-child {
+  flex-grow: 1;
+}
+
+.Car .hl {
+  background: #6aa84f;
+  color: #fff;
+}
+
+.Car .weekend {
+  padding: 5px;
+  border-radius: 4px;
+  background: #ffc5d2;
+}
+
+.Car .daily {
+  padding: 5px;
+  border-radius: 4px;
+  background: #c6e0b4;
+}
+
+.Car .score {
+  padding: 5px;
+  border-radius: 4px;
+  background: #404040;
+  color: #fff;
+}
+
+.Car div:not(:first-child) {
+  flex-grow: 0;
+}
+
+.Car div:not(.active) {
+  margin-right: 20px;
+}
+
+.Car .active {
+  background: #6aa84f;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+  transform: scale(1.2) rotateZ(14deg);
+  width: 20px;
+  text-align: center;
+  order: 5;
+}
+
+.Car:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
