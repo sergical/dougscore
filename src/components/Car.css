@@ -5,9 +5,8 @@
   background: #fff;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: all 0.15s ease;
-  flex: 1;
   position: relative;
-  flex-basis: 100%;
+  flex: 0 1 500px;
 }
 
 .Car h3 {
@@ -52,14 +51,14 @@
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
-@media (min-width: 600px) and (max-width: 899px) {
+@media (min-width: 750px) and (max-width: 999px) {
   .Car {
-    flex-basis: 40%;
+    flex: 0 1 300px;
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1000px) {
   .Car {
-    flex-basis: 20%;
+    flex: 0 1 250px;
   }
 }
