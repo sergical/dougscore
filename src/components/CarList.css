@@ -66,6 +66,10 @@
   cursor: pointer;
 }
 
+.no-results {
+  text-align: center;
+}
+
 .CarList ul.pagination li a {
   display: block;
 }

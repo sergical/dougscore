@@ -5,6 +5,8 @@ import { load } from "../helpers/spreadsheet";
 import Car from "./Car";
 import "./CarList.css";
 
+import NotFound from "./not-found.gif";
+
 const PAGE_LIMIT = 10;
 
 const sortOptions = [
@@ -114,14 +116,21 @@ class CarList extends Component {
   renderCarList = () => {
     return (
       <ul className="car-list">
-        {this.state.currentResults.map((car, i) => (
-          <Car
-            key={i}
-            car={car}
-            sortOption={this.state.sort.value}
-            search={this.state.search}
-          />
-        ))}
+        {this.state.currentResults.length ? (
+          this.state.currentResults.map((car, i) => (
+            <Car
+              key={i}
+              car={car}
+              sortOption={this.state.sort.value}
+              search={this.state.search}
+            />
+          ))
+        ) : (
+          <div className="no-results">
+            <h2>Looks like there aren't any cars that match your search</h2>
+            <img src={NotFound} alt="No Results" />
+          </div>
+        )}
       </ul>
     );
   };
