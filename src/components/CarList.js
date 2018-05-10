@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { PacmanLoader } from 'react-spinners';
 import { load } from '../helpers/spreadsheet';
 import Car from './Car';
+import CarFilters from './CarFilters';
 import BestOfEach from './BestOfEach';
 import './CarList.css';
 
@@ -11,10 +12,33 @@ import NotFound from './not-found.gif';
 
 const PAGE_LIMIT = 20;
 
-const sortOptions = [
-  { value: 'score', label: 'DougScore' },
-  { value: 'wTotal', label: 'Weekend Score' },
-  { value: 'dTotal', label: 'Daily Score' },
+const SORT_OPTIONS = [
+  { value: 'score', label: '✅ DougScore' },
+  { value: 'wTotal', label: '🏖️ Weekend Score' },
+  { value: 'dTotal', label: '🏢 Daily Score' },
+  { value: 'wStyling', label: '💅🏼 Styling' },
+  { value: 'wAccel', label: '🏎️ Acceleration' },
+  { value: 'wHandling', label: '↪️ Handling' },
+  { value: 'wFun', label: '😂 Fun Factor' },
+  { value: 'wCool', label: '🆒 Cool Factor' },
+  { value: 'dFeatures', label: '🎮 Features' },
+  { value: 'dComfort', label: '🛋️ Comfort' },
+  { value: 'dQuality', label: '👩🏼‍🔬 Quality' },
+  { value: 'dPracticality', label: '🛄 Practicality' },
+  { value: 'dValue', label: '💰 Value' },
+];
+
+const FILTER_OPTIONS = [
+  { value: 10, option: 'wStyling', label: '💅🏼 Styling' },
+  { value: 10, option: 'wAccel', label: '🏎️ Acceleration' },
+  { value: 10, option: 'wHandling', label: '↪️ Handling' },
+  { value: 10, option: 'wFun', label: '😂 Fun Factor' },
+  { value: 10, option: 'wCool', label: '🆒 Cool Factor' },
+  { value: 10, option: 'dFeatures', label: '🎮 Features' },
+  { value: 10, option: 'dComfort', label: '🛋️ Comfort' },
+  { value: 10, option: 'dQuality', label: '👩🏼‍🔬 Quality' },
+  { value: 10, option: 'dPracticality', label: '🛄 Practicality' },
+  { value: 10, option: 'dValue', label: '💰 Value' },
 ];
 
 class CarList extends Component {
@@ -25,9 +49,12 @@ class CarList extends Component {
     page: 0,
     pageCount: 0,
     search: '',
-    sort: sortOptions[0],
+    results: 0,
+    sort: SORT_OPTIONS[0],
     selectedCars: [],
     comparing: false,
+    open: false,
+    filterOptions: FILTER_OPTIONS,
   };
 
   componentDidMount() {
@@ -40,6 +67,7 @@ class CarList extends Component {
       const { page } = this.state;
       this.setState({
         cars: data.cars,
+        results: data.cars.length,
         currentResults: data.cars.slice(page, PAGE_LIMIT),
         pageCount: data.cars.length / PAGE_LIMIT,
         loading: false,
@@ -81,8 +109,22 @@ class CarList extends Component {
     const searchValue = this.state.search;
     const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
     const searchResults = this.findMatches(searchValue, filteredCars);
+    const filters = this.state.filterOptions;
+    const filteredArray = searchResults.filter(
+      car =>
+        car.wStyling <= filters.find(option => option.option === 'wStyling').value &&
+        car.wAccel <= filters.find(option => option.option === 'wAccel').value &&
+        car.wHandling <= filters.find(option => option.option === 'wHandling').value &&
+        car.wFun <= filters.find(option => option.option === 'wFun').value &&
+        car.wCool <= filters.find(option => option.option === 'wCool').value &&
+        car.dFeatures <= filters.find(option => option.option === 'dFeatures').value &&
+        car.dComfort <= filters.find(option => option.option === 'dComfort').value &&
+        car.dQuality <= filters.find(option => option.option === 'dQuality').value &&
+        car.dPracticality <= filters.find(option => option.option === 'dPracticality').value &&
+        car.dValue <= filters.find(option => option.option === 'dValue').value
+    );
     this.setState({
-      currentResults: searchResults.slice(selected * PAGE_LIMIT, selected * PAGE_LIMIT + PAGE_LIMIT),
+      currentResults: filteredArray.slice(selected * PAGE_LIMIT, selected * PAGE_LIMIT + PAGE_LIMIT),
       page: selected,
     });
   };
@@ -91,11 +133,65 @@ class CarList extends Component {
     const searchValue = e.target.value;
     const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
     const searchResults = this.findMatches(searchValue, filteredCars);
+    const filters = this.state.filterOptions;
+    const filteredArray = searchResults.filter(
+      car =>
+        car.wStyling <= filters.find(option => option.option === 'wStyling').value &&
+        car.wAccel <= filters.find(option => option.option === 'wAccel').value &&
+        car.wHandling <= filters.find(option => option.option === 'wHandling').value &&
+        car.wFun <= filters.find(option => option.option === 'wFun').value &&
+        car.wCool <= filters.find(option => option.option === 'wCool').value &&
+        car.dFeatures <= filters.find(option => option.option === 'dFeatures').value &&
+        car.dComfort <= filters.find(option => option.option === 'dComfort').value &&
+        car.dQuality <= filters.find(option => option.option === 'dQuality').value &&
+        car.dPracticality <= filters.find(option => option.option === 'dPracticality').value &&
+        car.dValue <= filters.find(option => option.option === 'dValue').value
+    );
     this.setState({
       page: 0,
-      pageCount: Math.ceil(searchResults.length / PAGE_LIMIT),
-      currentResults: searchResults.slice(0, PAGE_LIMIT),
+      results: filteredArray.length,
+      pageCount: Math.ceil(filteredArray.length / PAGE_LIMIT),
+      currentResults: filteredArray.slice(0, PAGE_LIMIT),
       search: searchValue,
+    });
+  };
+
+  filter = (filterItem, value) => {
+    // Current sort & search state results
+    const searchValue = this.state.search;
+    const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
+    const searchResults = this.findMatches(searchValue, filteredCars);
+    console.log(FILTER_OPTIONS);
+    // Updated the filter first
+    const filters = this.state.filterOptions;
+    const updatedFilterOptions = filters.map(filterOption => {
+      if (filterOption.option === filterItem) {
+        filterOption.value = value;
+      }
+      return filterOption;
+    });
+    // Now lets filter out those results
+
+    const filteredArray = searchResults.filter(
+      car =>
+        car.wStyling <= updatedFilterOptions.find(option => option.option === 'wStyling').value &&
+        car.wAccel <= updatedFilterOptions.find(option => option.option === 'wAccel').value &&
+        car.wHandling <= updatedFilterOptions.find(option => option.option === 'wHandling').value &&
+        car.wFun <= updatedFilterOptions.find(option => option.option === 'wFun').value &&
+        car.wCool <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
+        car.dFeatures <= updatedFilterOptions.find(option => option.option === 'dFeatures').value &&
+        car.dComfort <= updatedFilterOptions.find(option => option.option === 'dComfort').value &&
+        car.dQuality <= updatedFilterOptions.find(option => option.option === 'dQuality').value &&
+        car.dPracticality <= updatedFilterOptions.find(option => option.option === 'dPracticality').value &&
+        car.dValue <= updatedFilterOptions.find(option => option.option === 'dValue').value
+    );
+
+    this.setState({
+      page: 0,
+      results: filteredArray.length,
+      pageCount: Math.ceil(filteredArray.length / PAGE_LIMIT),
+      currentResults: filteredArray.slice(0, PAGE_LIMIT),
+      filterOptions: updatedFilterOptions,
     });
   };
 
@@ -108,9 +204,25 @@ class CarList extends Component {
   handleSortChange = selected => {
     const cars = this.state.cars.sort((a, b) => b[selected.value] - a[selected.value]);
     const searchResults = this.findMatches(this.state.search, cars);
+
+    const filters = this.state.filterOptions;
+    const filteredArray = searchResults.filter(
+      car =>
+        car.wStyling <= filters.find(option => option.option === 'wStyling').value &&
+        car.wAccel <= filters.find(option => option.option === 'wAccel').value &&
+        car.wHandling <= filters.find(option => option.option === 'wHandling').value &&
+        car.wFun <= filters.find(option => option.option === 'wFun').value &&
+        car.wCool <= filters.find(option => option.option === 'wCool').value &&
+        car.dFeatures <= filters.find(option => option.option === 'dFeatures').value &&
+        car.dComfort <= filters.find(option => option.option === 'dComfort').value &&
+        car.dQuality <= filters.find(option => option.option === 'dQuality').value &&
+        car.dPracticality <= filters.find(option => option.option === 'dPracticality').value &&
+        car.dValue <= filters.find(option => option.option === 'dValue').value
+    );
+
     this.setState({
       cars,
-      currentResults: searchResults.slice(this.state.page * PAGE_LIMIT, this.state.page * PAGE_LIMIT + PAGE_LIMIT),
+      currentResults: filteredArray.slice(this.state.page * PAGE_LIMIT, this.state.page * PAGE_LIMIT + PAGE_LIMIT),
       sort: selected,
     });
   };
@@ -124,6 +236,38 @@ class CarList extends Component {
     this.setState({
       comparing: false,
       selectedCars: [],
+    });
+  };
+
+  clearFilters = () => {
+    const searchValue = this.state.search;
+    const filteredCars = this.state.cars.sort((a, b) => b[this.state.sort.value] - a[this.state.sort.value]);
+    const searchResults = this.findMatches(searchValue, filteredCars);
+    // Now lets filter out those results
+    const updatedFilterOptions = this.state.filterOptions.map(filterOption => {
+      filterOption.value = 10;
+      return filterOption;
+    });
+    const filteredArray = searchResults.filter(
+      car =>
+        car.wStyling <= updatedFilterOptions.find(option => option.option === 'wStyling').value &&
+        car.wAccel <= updatedFilterOptions.find(option => option.option === 'wAccel').value &&
+        car.wHandling <= updatedFilterOptions.find(option => option.option === 'wHandling').value &&
+        car.wFun <= updatedFilterOptions.find(option => option.option === 'wFun').value &&
+        car.wCool <= updatedFilterOptions.find(option => option.option === 'wCool').value &&
+        car.dFeatures <= updatedFilterOptions.find(option => option.option === 'dFeatures').value &&
+        car.dComfort <= updatedFilterOptions.find(option => option.option === 'dComfort').value &&
+        car.dQuality <= updatedFilterOptions.find(option => option.option === 'dQuality').value &&
+        car.dPracticality <= updatedFilterOptions.find(option => option.option === 'dPracticality').value &&
+        car.dValue <= updatedFilterOptions.find(option => option.option === 'dValue').value
+    );
+
+    this.setState({
+      page: 0,
+      results: filteredArray.length,
+      pageCount: Math.ceil(filteredArray.length / PAGE_LIMIT),
+      currentResults: filteredArray.slice(0, PAGE_LIMIT),
+      filterOptions: updatedFilterOptions,
     });
   };
 
@@ -144,15 +288,30 @@ class CarList extends Component {
         <div className="filter-wrapper">
           <span className="filter-label">Sort By:</span>{' '}
           <Select
-            options={sortOptions}
+            options={SORT_OPTIONS}
             className="filter"
             isClearable={false}
             value={this.state.sort}
             onChange={this.handleSortChange}
           />
         </div>
+        <div className="filter-wrapper">
+          <button className="filter-button" onClick={() => this.setState({ open: !this.state.open })}>
+            {this.state.open ? 'Close' : 'Open'} Filters
+          </button>
+        </div>
       </div>
-      {this.renderCarList()}
+      <h4 style={{ textAlign: `center` }}>Total Cars: {this.state.results}</h4>
+      <div className="list-and-filters">
+        {this.renderCarList()}
+        <CarFilters
+          open={this.state.open}
+          filterOptions={this.state.filterOptions}
+          filter={this.filter}
+          clearFilters={this.clearFilters}
+        />
+      </div>
+
       <ReactPaginate
         previousLabel={
           <span role="img" aria-labelledby="Arrow backward">

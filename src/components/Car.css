@@ -8,6 +8,7 @@
   position: relative;
   flex: 0 1 500px;
   display: flex;
+  height: 350px;
   flex-direction: column;
 }
 
@@ -23,8 +24,8 @@
   font-weight: 600;
 }
 
-.Car div:first-child {
-  flex-grow: 1;
+.Car div:last-child {
+  margin-top: auto;
 }
 
 .Car .hl {

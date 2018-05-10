@@ -1,0 +1,68 @@
+.CarFilters {
+  transition: all .2s ease;
+  order: 1;
+}
+
+.CarFilters.open {
+  width: 100%;
+  opacity: 1;
+}
+
+.CarFilters.closed {
+  width: 0;
+  opacity: 0;
+  display: none;
+}
+
+.filter-card {
+  padding: 15px;
+  margin: 10px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.filter-card button {
+  margin-top: 15px;
+  width: 100%;
+  background: #f1f1f1;
+}
+
+.filter-item {
+  padding-bottom: 35px;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.filter-item hr {
+  position: absolute;
+  bottom: 0;
+  left: -15px;
+  right: -15px;
+  background-color: #f1f1f1;
+  border: none;
+  height: 2px;
+}
+
+.filter-item p {
+  margin-top: 0;
+}
+
+.filter-card h3 {
+  text-align: center;
+  margin-top: 0;
+}
+
+@media (min-width: 800px) {
+  .CarFilters {
+    order: 2;
+  }
+  .CarFilters.open {
+    width: 400px;
+  }
+
+  .CarFilters.closed {
+    display: block;
+  }
+}

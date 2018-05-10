@@ -4,9 +4,9 @@ import './BestOfEach.css';
 
 class BestOfEach extends Component {
   findBest = key => {
-    const keys = this.props.selectedCars.map(car => car[key]);
+    const keys = this.props.selectedCars.map(carObject => carObject[key]);
     const maxValue = Math.max(...keys);
-    const car = this.props.selectedCars.find(car => car[key] === maxValue);
+    const car = this.props.selectedCars.find(carObject => carObject[key] === maxValue);
     return car.name;
   };
   render() {

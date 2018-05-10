@@ -25,6 +25,9 @@ const Car = ({ car, sortOption, search, selected, selectCar }) => (
     <div className={sortOption === 'dTotal' ? 'active' : 'daily'}>
       {sortOption === 'dTotal' ? null : '🏢 Daily Score: '} <span className="number">{car.dTotal}</span>
     </div>
+    <div className={sortOption === 'score' ? 'active' : 'score'}>
+      {sortOption === 'score' ? null : '✅ DougScore: '} <span className="number">{car.score}</span>
+    </div>
     <div style={{ marginTop: 20 }}>
       <Bar
         options={{
@@ -89,9 +92,6 @@ const Car = ({ car, sortOption, search, selected, selectCar }) => (
       <button onClick={e => selectCar(e, car)} className={selected ? 'selected' : null}>
         {selected ? 'Selected' : 'Compare'}
       </button>
-    </div>
-    <div className={sortOption === 'score' ? 'active' : 'score'}>
-      {sortOption === 'score' ? null : '✅ DougScore: '} <span className="number">{car.score}</span>
     </div>
   </li>
 );
